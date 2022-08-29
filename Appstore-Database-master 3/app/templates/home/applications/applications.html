@@ -1,0 +1,69 @@
+
+{% import "bootstrap/utils.html" as utils %}
+{% extends "base.html" %}
+{% block title %}Applications{% endblock %}
+
+{% block body %}
+
+<div class="content-section">
+    <br/>
+    {{ utils.flashed_messages() }}
+    <br/>
+  <div class="outer">
+    <div class="middle">
+      <div class="inner"> 
+        <h1 style="text-align:center;">Applications</h1>
+        {% if applications %}
+          <hr class="intro-divider">
+          <div class="center" style="margin-left:350px;margin-right:100px;">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th width="25%">Package Name</th>
+                  <th width="25%"> Developer ID </th>
+                  <th width="25%"> Name </th>
+                  <th width="25%"> Type </th>
+                  <th width="25%"> Price </th>
+                  <th width="15%"> Edit </th>
+                  <th width="15%"> Delete </th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for app in applications %}
+                <tr>
+                  <td> {{ app.0 }} </td>
+                  <td> {{ app.1 }} </td>
+                  <td> {{ app.2 }} </td>
+                  <td> {{ app.3 }} </td>
+                  <td> {{ app.4 }} </td>
+                  <td>
+                    <a href="{{ url_for('home.edit_app', package_name=app.0, developer_id=app.1) }}" style="color:mediumslateblue;">
+                      <i class="fa fa-pencil"></i> Edit 
+                    </a>
+                  </td>
+                  <td>
+                    <a href="{{ url_for('home.delete_app', package_name=app.0) }}" style="color:mediumslateblue;">
+                      <i class="fa fa-trash"></i> Delete 
+                    </a>
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div style="text-align: center">
+        {% else %}
+          <div style="text-align: center">
+            <h3> No Applications have been added. </h3>
+            <hr class="intro-divider">
+        {% endif %}
+          <a href="{{ url_for('home.add_app_under_dev')}}" class="btn btn-default btn-lg" style="color:mediumslateblue; border-color: indigo;">
+            <i class="fa fa-plus"></i>
+            Add Application
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

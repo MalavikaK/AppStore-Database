@@ -1,0 +1,73 @@
+
+{% import "bootstrap/utils.html" as utils %}
+{% extends "base.html" %}
+{% block title %}Developers{% endblock %}
+
+{% block body %}
+
+<div class="content-section">
+    <br/>
+    {{ utils.flashed_messages() }}
+    <br/>
+  <div class="outer">
+    <div class="middle">
+      <div class="inner"> 
+        <h1 style="text-align:center;">Developers</h1>
+        {% if developers %}
+          <hr class="intro-divider">
+          <div class="center" style="margin-left:250px;margin-right:100px;">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th width="25%">PK</th>
+                  <th width="25%"> Name </th>
+                  <th width="25%"> Email </th>
+                  <th width="25%"> Country </th>
+                  <th width="25%"> Website </th>
+                  <th width="25%"> Address </th>
+                  <th width="25%"> Bank Account Number </th>
+                  <th width="15%"> Edit </th>
+                  <th width="15%"> Delete </th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for developer in developers %}
+                <tr>
+                  <td> {{ developer.0 }} </td>
+                  <td> {{ developer.1 }} </td>
+                  <td> {{ developer.2 }} </td>
+                  <td> {{ developer.3 }} </td>
+                  <td> {{ developer.4 }} </td>
+                  <td> {{ developer.5 }} </td>
+                  <td> {{ developer.6 }} </td>
+                  <td>
+                    <a href="{{ url_for('home.edit_developer', developer_id=developer.0) }}" style="color:mediumslateblue;">
+                      <i class="fa fa-pencil"></i> Edit 
+                    </a>
+                  </td>
+                  <td>
+                    <a href="{{ url_for('home.delete_developer', developer_id=developer.0) }}" style="color:mediumslateblue;">
+                      <i class="fa fa-trash"></i> Delete 
+                    </a>
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div style="text-align: center">
+        {% else %}
+          <div style="text-align: center">
+            <h3> No developers have been added. </h3>
+            <hr class="intro-divider">
+        {% endif %}
+          <a href="{{ url_for('home.add_developer') }}" class="btn btn-default btn-lg" style="color:mediumslateblue; border-color: indigo;">
+            <i class="fa fa-plus"></i>
+            Add developer
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

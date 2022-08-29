@@ -1,0 +1,63 @@
+
+{% import "bootstrap/utils.html" as utils %}
+{% extends "base.html" %}
+{% block title %}Purchases{% endblock %}
+
+{% block body %}
+
+<div class="content-section">
+    <br/>
+    {{ utils.flashed_messages() }}
+    <br/>
+  <div class="outer">
+    <div class="middle">
+      <div class="inner"> 
+        <h1 style="text-align:center;">Purchases</h1>
+        {% if purchases %}
+          <hr class="intro-divider">
+            <div class="center" style="margin-left:350px;margin-right:100px;">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th width="25%">Order Id</th>
+                  <th width="25%"> User Id </th>
+                  <th width="25%"> App </th>
+                  <th width="25%"> Price </th>
+                  <th width="25%"> Date </th>
+                  <th width="15%"> Delete </th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for purchase in purchases %}
+                <tr>
+                  <td> {{ purchase.0 }} </td>
+                  <td> {{ purchase.1 }} </td>
+                  <td> {{ purchase.2 }} </td>
+                  <td> {{ purchase.3 }} </td>
+                  <td> {{ purchase.4 }} </td>
+                  <td>
+                    <a href="{{ url_for('home.delete_purchase', order_id=purchase.0) }}" style="color:mediumslateblue;">
+                      <i class="fa fa-trash"></i> Delete 
+                    </a>
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div style="text-align: center">
+        {% else %}
+          <div style="text-align: center">
+            <h3> No developers have been added. </h3>
+            <hr class="intro-divider">
+        {% endif %}
+          <a href="{{ url_for('home.add_purchase_under_user') }}" class="btn btn-default btn-lg" style="color:mediumslateblue; border-color: indigo;">
+            <i class="fa fa-plus"></i>
+            Add Purchase
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

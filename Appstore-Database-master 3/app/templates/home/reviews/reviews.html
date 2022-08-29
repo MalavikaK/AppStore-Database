@@ -1,0 +1,67 @@
+
+{% import "bootstrap/utils.html" as utils %}
+{% extends "base.html" %}
+{% block title %}Reviews{% endblock %}
+
+{% block body %}
+
+<div class="content-section">
+    <br/>
+    {{ utils.flashed_messages() }}
+    <br/>
+  <div class="outer">
+    <div class="middle">
+      <div class="inner"> 
+        <h1 style="text-align:center;">App Reviews</h1>
+        {% if reviews %}
+          <hr class="intro-divider">
+          <div class="center" style="margin-left:350px;margin-right:100px;">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th width="25%">User</th>
+                  <th width="25%"> App </th>
+                  <th width="25%"> Rating </th>
+                  <th width="25%"> Comment </th>
+                  <th width="15%"> Edit </th>
+                  <th width="15%"> Delete </th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for review in reviews %}
+                <tr>
+                  <td> {{ review.0 }} </td>
+                  <td> {{ review.1 }} </td>
+                  <td> {{ review.2 }} </td>
+                  <td> {{ review.3 }} </td>
+                  <td>
+                    <a href="{{ url_for('home.edit_review', apple_id=review.0, package_name=review.1) }}" style="color:mediumslateblue;">
+                      <i class="fa fa-pencil"></i> Edit 
+                    </a>
+                  </td>
+                  <td>
+                    <a href="{{ url_for('home.delete_review', apple_id=review.0, package_name=review.1) }}" style="color:mediumslateblue;">
+                      <i class="fa fa-trash"></i> Delete 
+                    </a>
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div style="text-align: center">
+        {% else %}
+          <div style="text-align: center">
+            <h3> No Reviews have been added. </h3>
+            <hr class="intro-divider">
+        {% endif %}
+          <a href="{{ url_for('home.add_review_under_user') }}" class="btn btn-default btn-lg" style="color:mediumslateblue; border-color: indigo;">
+            <i class="fa fa-plus"></i>
+            Add Review
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
